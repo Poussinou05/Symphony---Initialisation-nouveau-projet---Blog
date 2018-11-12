@@ -27,20 +27,7 @@ class BlogController extends AbstractController
 //        return $this->render('blog/index.html.twig', ['slug' => $slug3]);
 //    }
 
-//    /**
-//     *@Route("/blog/categories", name="blog_listCategories"
-//     */
-//    public function listCategories()
-//    {
-//
-//        return $this->render('blog/listCategories.html.twig', ['categories' => $categories]);
-//    }
 
-    /**
-     * @Route("/article/{id}", name="article_show")
-     */
-    public function show(Article $article) :Response
-    {
-        return $this->render('blog/article.html.twig', ['article'=>$article]);
-    }
+
+
 }
