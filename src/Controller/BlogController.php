@@ -111,4 +111,22 @@ class BlogController extends AbstractController
             ]
         );
     }
+
+    /**
+     * Show all articles from one Category
+     *
+     * @Route("/category/{name}/all", name="blog_show_allbyCategory")
+     * @return Response A response instance
+     */
+    public function showAllByCategory(Category $category) : Response
+    {
+        $categories = $category->getArticles();
+
+        return $this->render(
+            'blog/showAllByCategory.html.twig',
+            [
+                'category' => $categories,
+            ]
+        );
+    }
 }
