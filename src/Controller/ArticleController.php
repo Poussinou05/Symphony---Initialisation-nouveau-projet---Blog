@@ -10,9 +10,14 @@ namespace App\Controller;
 
 
 use App\Entity\Article;
+use App\Entity\Category;
+use App\Form\ArticleType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+//use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Flex\Response;
+
 
 class ArticleController extends AbstractController
 {
@@ -26,9 +31,31 @@ class ArticleController extends AbstractController
     /**
      *@Route("/articles", name="article_list")
      */
-    public function list()
+    public function list(Request $request)
     {
-        $articles=$this->getDoctrine()->getRepository(Article::class)->findAll();
-        return $this->render('blog/list.html.twig', ['articles' => $articles]);
+        $articles=$this->getDoctrine()
+            ->getRepository(Article::class)
+            ->findAll();
+
+        $article = new Article();
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()){
+            $article = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+
+            return $this->redirectToRoute('article_list');
+        }
+
+        return $this->render(
+            'blog/list.html.twig', [
+                'articles' => $articles,
+                'form' => $form->createView(),
+            ]
+        );
     }
 }
