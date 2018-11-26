@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Articles du tag {{ tag.owner.name }}</h1>
     {% for article in tag %}
-        <h2>Article n°{{ article.id }} : {{ article.title}}</h2>
+        <a href="{{ path('article_show',{'id': article.id}) }}"><h2>Article n°{{ article.id }} : {{ article.title}}</h2></a>
         <p>{{ article.content }}</p>
     {% endfor %}
 

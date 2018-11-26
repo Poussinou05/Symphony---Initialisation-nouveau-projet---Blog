@@ -9,7 +9,7 @@
     <strong>Tags :</strong>
     <ul>
         {% for tag in article.tags %}
-            <li>{{ tag.name}} </li>
+            <a href="{{ path('tag_show', {'name': tag.name })}}"><li>{{ tag.name}} </li></a>
         {% else %}
             <li>No tags for this article</li>
         {% endfor %}
