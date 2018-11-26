@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Articles du tag {{ tag.owner.name }}</h1>
+    {% for article in tag %}
+        <h2>Article n°{{ article.id }} : {{ article.title}}</h2>
+        <p>{{ article.content }}</p>
+    {% endfor %}
+
+{% endblock %}

@@ -11,12 +11,15 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\Tag;
 use App\Form\ArticleType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 //use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Flex\Response;
+// use Symfony\Flex\Response;
+
 
 
 class ArticleController extends AbstractController
@@ -57,5 +60,20 @@ class ArticleController extends AbstractController
                 'form' => $form->createView(),
             ]
         );
+    }
+
+    /**
+     * @Route("/tag/{name}", name="tag_show")
+     */
+    public function showByTag(Tag $tag) : Response
+    {
+        $tags = $tag->getArticles();
+
+        return $this->render('blog/tag.html.twig',
+            [
+                'tag' => $tags
+            ]
+        );
+
     }
 }
