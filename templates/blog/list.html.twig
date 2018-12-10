@@ -1,11 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% for article in articles %}
-        <h2>{{ article.title }}</h2>
-        <p>{{ article.content }}</p>
-       <p><span>Catégorie : </span>{{ article.category.name }}</p>
-    {% endfor %}
     <h2>Ajouter un article</h2>
     {{ form_start(form) }}
     {{ form_row(form.title) }}
@@ -13,4 +8,10 @@
     {{ form_row(form.category) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
     {{ form_end(form) }}
+    {% for article in articles %}
+        <h2>{{ article.title }}</h2>
+        <p>{{ article.content }}</p>
+       <p><span>Catégorie : </span>{{ article.category.name }}</p>
+    {% endfor %}
+
 {% endblock %}

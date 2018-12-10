@@ -13,6 +13,7 @@ use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Tag;
 use App\Form\ArticleType;
+use App\Service\Slugify;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,7 +35,7 @@ class ArticleController extends AbstractController
     /**
      *@Route("/articles", name="article_list")
      */
-    public function list(Request $request)
+    public function list(Request $request, Slugify $slugify)
     {
         $articles=$this->getDoctrine()
             ->getRepository(Article::class)
@@ -47,7 +48,11 @@ class ArticleController extends AbstractController
         if($form->isSubmitted()){
             $article = $form->getData();
 
+
+
             $em = $this->getDoctrine()->getManager();
+            $slug = $slugify->generate($article->getTitle());
+            $article->setSlug($slug);
             $em->persist($article);
             $em->flush();
 
